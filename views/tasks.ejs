@@ -1,0 +1,131 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>My Tasks</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <header class="topbar">
+      <div>
+        <h1>Task Manager</h1>
+        <p>Welcome, <strong><%= currentUser.username %></strong></p>
+      </div>
+      <br>
+      <form action="/logout" method="POST">
+        <button type="submit" class="secondary">Logout</button>
+      </form>
+    </header>
+        <br>
+    <nav class="nav-links">
+      <a href="/tasks">My Tasks</a>
+      <a href="/tasks/create-task">Create Task</a>
+      <a href="/users">All Users</a>
+    </nav>
+
+    <h2>My Tasks</h2>
+
+    <% if (myTasks.length === 0) { %>
+      <p>No tasks assigned to you yet.</p>
+    <% } %>
+
+    <% myTasks.forEach(task => { %>
+      <section class="card">
+        <h3>Task Title: <%= task.title %></h3>
+
+        <p>Task description: <%= task.description %></p>
+
+        <p>
+          <strong>Priority:</strong>
+          <span class="priority <%= task.priority.toLowerCase() %>">
+            <%= task.priority %>
+          </span>
+        </p>
+
+        <p><strong>Status:</strong> <%= task.status %></p>
+
+        <p>
+          <strong>Depends on:</strong>
+          <% if (task.dependencies.length === 0) { %>
+            None
+          <% } else { %>
+            <% task.dependencies.forEach(dependency => { %>
+              <span><%= dependency.title %> (<%= dependency.status %>)</span>
+            <% }) %>
+          <% } %>
+        </p>
+
+        <% if (task.blocked && task.status !== "Done") { %>
+          <p class="error">
+            Blocked — complete the dependencies first.
+          </p>
+        <% } %>
+        <br>
+        <% if(blockedTasks.length === 0){ %>
+
+            <div class="actions">
+            <% if (task.status !== "Done" && !task.blocked) { %>
+                <form
+                action="/tasks/<%= task.id %>/complete?_method=PATCH"
+                method="POST"
+                >
+                <button type="submit">Mark as Done</button>
+                </form>
+            <% } %>
+
+            <a class="button secondary" href="/tasks/<%= task.id %>/edit">
+                Edit
+            </a>
+
+            <form
+                action="/tasks/<%= task.id %>?_method=DELETE"
+                method="POST"
+                onsubmit="return confirm('Delete this task?')"
+            >
+                <button type="submit" class="danger">Delete</button>
+            </form>
+            </div>
+
+        <% } %>
+      </section>
+    <% }) %>
+      <br>
+    <h2>Blocked Tasks</h2>
+    <!-- <p>These tasks cannot be completed until their dependencies are done.</p> -->
+
+    <% if (blockedTasks.length === 0) { %>
+      <p>No blocked tasks.</p>
+    <% } %>
+
+    <% blockedTasks.forEach(task => { %>
+      <section class="card blocked">
+        <h3>Task name: <%= task.title %></h3>
+        <p><strong>Priority:</strong> <%= task.priority %></p>
+        <p><strong>Status:</strong> <%= task.status %></p>
+        <p>
+          <strong>Assigned to:</strong>
+          <%= task.assignedTo === currentUser.id  ? currentUser.username  : "Another user" %>
+        </p>
+
+        <p><strong>Waiting for:</strong></p>
+        <ul>
+          <% task.dependencies
+            .filter(dependency => dependency.status !== "Done")
+            .forEach(dependency => { %>
+              <li>
+                <%= dependency.title %> — <%= dependency.status %>
+              </li>
+          <% }) %>
+        </ul>
+        <br>
+        <a class="button secondary" href="/tasks/<%= task.id %>/edit">
+          Edit Dependencies
+        </a>
+      </section>
+    <% }) %>
+  </main>
+</body>
+</html>

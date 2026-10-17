@@ -1,0 +1,50 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Task</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Create New Task</h1>
+
+    <form action="/tasks" method="POST">
+      <label>Title</label>
+      <input type="text" name="title" required>
+        <br><br>
+      <label>Description</label>
+      <textarea name="description"></textarea>
+        <br><br>
+      <label>Priority</label>
+      <select name="priority" required>
+        <option value="Low">Low</option>
+        <option value="Medium" selected>Medium</option>
+        <option value="High">High</option>
+      </select>
+      <br><br>
+      <label>Status</label>
+      <select name="status" required>
+        <option value="To Do" selected>To Do</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Done">Done</option>
+      </select>
+      <br><br>
+      <label>Assign User</label>
+      <select name="assignedTo" required>
+        <% users.forEach(user => { %>
+          <option value="<%= user.id %>">
+            <%= user.username %>
+          </option>
+        <% }) %>
+      </select>
+      <br><br>
+      <button type="submit">Create Task</button>
+    </form>
+    <br><br>
+    <a href="/tasks">Back</a>
+  </main>
+</body>
+</html>

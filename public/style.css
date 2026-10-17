@@ -1,0 +1,158 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+h2,h1{
+    text-align: center;
+    text-decoration: underline;
+    margin-bottom: 1rem;
+}
+body {
+  background: rgb(164, 186, 119);
+}
+
+.container {
+  max-width: 1280px;
+  margin: 35px auto;
+}
+form {
+  margin-block: 1rem;
+}
+
+input, textarea, select {
+  width: 100%;
+  padding: 10px 15px;
+  border-radius: 5px;
+}
+
+textarea {
+  min-height: 90px;
+}
+
+button, .button {
+  display: inline-block;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background: blue;
+  color: white;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button:hover, .button:hover {
+  opacity: 0.85;
+}
+
+.secondary {
+  background: grey;
+  color: white;
+}
+
+.danger {
+  background: red;
+}
+
+.card {
+  margin: 1rem 0;
+  padding: 20px;
+  background: white;
+  border: 1px solid blanchedalmond;
+  border-radius: 10px;
+  box-shadow: 0 0 5px black;
+}
+
+
+.blocked {
+  border-left: 5px solid powderblue;
+}
+
+.error {
+  color: brown;
+}
+
+.priority {
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  line-height: 3rem;
+}
+
+.low {
+  background: green;
+  color:mintcream;
+}
+
+.medium {
+  background: orange;
+  color: mintcream;
+}
+
+.high {
+  background: rgba(255, 0, 0, 0.772);
+  color: mintcream;
+}
+
+.topbar,
+.nav-links,
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-links {
+  justify-content: flex-start;
+  margin: 22px 0;
+}
+
+.nav-links a {
+  color: blueviolet;
+}
+
+.actions {
+  justify-content: flex-start;
+  margin-top: 1rem;
+}
+
+.actions form {
+  margin: 0;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: normal;
+}
+
+.checkbox-label input {
+  width: auto;
+  margin: 0;
+}
+
+@media (max-width: 1300px) {
+  .container {
+    margin: 20px auto;
+  }
+  input,textarea, label, button,.card{
+    width: 80%;
+    display: block;
+    margin: auto;
+  }
+  button{
+    max-width: 8rem;
+  }
+  .card {
+    padding: 15px;
+    margin-bottom: 1rem;
+  }
+  .login-class{
+    display: block;
+    width: fit-content;
+    margin: auto;
+  }
+}

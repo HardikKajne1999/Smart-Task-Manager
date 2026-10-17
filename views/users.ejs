@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Users</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <main class="container">
+    <h1>Smart Task Manager</h1>
+    <h2>Create User</h2>
+
+    <form action="/users" method="POST">
+      <label>Username</label>
+      <br>
+      <input type="text" name="username" required>
+        <br><br>
+      <label>Password</label>
+      <br>
+      <input type="password" name="password" required>
+        <br><br>
+      <button>Create User</button>
+    </form>
+
+    <h2>All Users</h2>
+
+    <% if (users.length === 0) { %>
+      <p>No users registered yet.</p>
+    <% } %>
+
+    <% for(let user of users){ %>
+      <div class="card">
+        <p><strong>Username:</strong> <%= user.username %></p>
+        <br>
+        <a href="/login">Login for <%= user.username %></a>
+        <br>
+      </div>
+    <% } %>
+      <br><br>
+    
+      <div class="login-class">
+        <a href="/login">Go to Login</a>
+    </div>
+  </main>
+</body>
+</html>
